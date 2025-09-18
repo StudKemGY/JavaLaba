@@ -1,0 +1,96 @@
+import java.util.Scanner;
+
+public class Main {
+    
+    // №1: Проверка возможности построения треугольника
+    public static void triangle(int a, int b, int c) {
+        if (a + b > c && a + c > b && b + c > a) {
+            System.out.println("Это треугольник");
+        } else {
+            System.out.println("Это не треугольник");
+        }
+    }
+    
+    // №2: Расстояние между двумя точками
+    public static double distance(double x1, double y1, double x2, double y2) {
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+    
+    // №3: Возведение в степень (итеративный метод)
+    public static double power(double a, int n) {
+        if (n == 0) {
+            return 1;
+        }
+        
+        double result = 1;
+        int absN = Math.abs(n);
+        
+        for (int i = 0; i < absN; i++) {
+            result *= a;
+        }
+        
+        return n > 0 ? result : 1 / result;
+    }
+    
+    // №4: Возведение в степень (рекурсивный метод)
+    public static double powerRecursive(double a, int n) {
+        if (n == 0) {
+            return 1; // базовый случай
+        }
+        if (n > 0) {
+            return a * powerRecursive(a, n - 1); // рекурсивный случай для положительной степени
+        } else {
+            return 1 / (a * powerRecursive(a, -n - 1)); // рекурсивный случай для отрицательной степени
+        }
+    }
+    
+    // №5: Число Трибоначчи (рекурсивный метод)
+    public static int tribonacci(int n) {
+        // Базовые случаи
+        if (n == 0 || n == 1) {
+            return 0;
+        }
+        if (n == 2) {
+            return 1;
+        }
+        
+        // Рекурсивный случай: сумма трех предыдущих чисел
+        return tribonacci(n - 1) + tribonacci(n - 2) + tribonacci(n - 3);
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Демонстрация работы функций
+        System.out.println("=== Задача 1: Треугольник ===");
+        triangle(1, 1, 2);
+        triangle(7, 6, 10);
+        triangle(20, 13, 17);
+        
+        System.out.println("\n=== Задача 2: Расстояние между точками ===");
+        System.out.println("Введите координаты двух точек (x1 y1 x2 y2):");
+        double x1 = scanner.nextDouble();
+        double y1 = scanner.nextDouble();
+        double x2 = scanner.nextDouble();
+        double y2 = scanner.nextDouble();
+        System.out.printf("Расстояние: %.3f\n", distance(x1, y1, x2, y2));
+        
+        System.out.println("\n=== Задача 3: Возведение в степень (итеративно) ===");
+        System.out.println("Введите число и степень:");
+        double a = scanner.nextDouble();
+        int n = scanner.nextInt();
+        System.out.printf("%.2f^%d = %.6f\n", a, n, power(a, n));
+        
+        System.out.println("\n=== Задача 4: Возведение в степень (рекурсивно) ===");
+        System.out.printf("%.2f^%d = %.6f\n", a, n, powerRecursive(a, n));
+        
+        System.out.println("\n=== Задача 5: Числа Трибоначчи ===");
+        System.out.println("Введите номер числа Трибоначчи:");
+        int tribN = scanner.nextInt();
+        System.out.printf("T(%d) = %d\n", tribN, tribonacci(tribN));
+        
+        scanner.close();
+    }
+}
